@@ -12,12 +12,13 @@ import java.nio.file.Path;
 import java.util.Properties;
 
 public class Config {
+    public static long maxIdleTime = 10;
 
     static final Path configPath = FabricLoader.getInstance().getConfigDir().resolve("easyafk.properties");
 
     static void serialize() {
         Properties prop = new Properties();
-        prop.setProperty("maxafkminutes", String.valueOf(AFKHandler.maxIdleTime));
+        prop.setProperty("maxafkminutes", String.valueOf(maxIdleTime));
         try {
             OutputStream s = Files.newOutputStream(configPath);
             prop.store(s, "EasyAFK Config");
@@ -32,7 +33,7 @@ public class Config {
         try {
             InputStream s = Files.newInputStream(configPath);
             prop.load(s);
-            AFKHandler.maxIdleTime = Integer.parseInt(prop.getProperty("playtime", String.valueOf(AFKHandler.maxIdleTime)));
+            maxIdleTime = Integer.parseInt(prop.getProperty("maxafkminutes", String.valueOf(maxIdleTime)));
         } catch (IOException e) {
             EasyAFK.LOGGER.warn("Failed to read config!");
         }

@@ -1,6 +1,7 @@
 package de.fanta.easyafk;
 
 import de.fanta.easyafk.util.ChatUtil;
+import de.fanta.easyafk.util.Config;
 import net.fabricmc.fabric.api.networking.v1.PlayerLookup;
 import net.minecraft.server.MinecraftServer;
 import net.minecraft.server.network.ServerPlayerEntity;
@@ -9,7 +10,8 @@ import java.util.HashMap;
 
 public class AFKHandler {
 
-    public static long maxIdleTime = 10;
+
+
     public static HashMap<ServerPlayerEntity, PlayerInfo> playerTimes;
 
     public AFKHandler() {
@@ -44,10 +46,10 @@ public class AFKHandler {
         PlayerInfo playerInfo = playerTimes.get(p);
         if (playerInfo != null && !playerInfo.afk) {
             long addTime;
-            if (time < playerInfo.last_move_time + maxIdleTime * 60 * 1000) {
+            if (time < playerInfo.last_move_time + EasyAFK.getMaxIdleTime() * 60 * 1000) {
                 addTime = time - playerInfo.last_check_time;
             } else {
-                addTime = (playerInfo.last_move_time + maxIdleTime * 60 * 1000) - playerInfo.last_check_time;
+                addTime = (playerInfo.last_move_time + EasyAFK.getMaxIdleTime() * 60 * 1000) - playerInfo.last_check_time;
                 playerInfo.afk = true;
                 ChatUtil.sendBrodcastMessage(p, p.getName().asString() + " is now AFK");
             }
