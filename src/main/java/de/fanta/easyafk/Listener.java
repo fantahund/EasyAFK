@@ -1,6 +1,7 @@
 package de.fanta.easyafk;
 
 import de.fanta.easyafk.util.ChatUtil;
+import net.fabricmc.fabric.api.event.lifecycle.v1.ServerLifecycleEvents;
 import net.fabricmc.fabric.api.event.lifecycle.v1.ServerTickEvents;
 import net.fabricmc.fabric.api.event.player.AttackBlockCallback;
 import net.fabricmc.fabric.api.networking.v1.ServerPlayConnectionEvents;
@@ -15,9 +16,6 @@ public class Listener {
 
     public void init() {
         ServerPlayConnectionEvents.JOIN.register(((handler, sender, server) -> {
-            if (ChatUtil.getServer() == null) {
-                ChatUtil.setServer(server);
-            }
                 AFKHandler.handleJoin(handler.getPlayer());
         }));
 
@@ -34,6 +32,12 @@ public class Listener {
         ServerTickEvents.END_SERVER_TICK.register(server -> {
             if (server != null) {
                 AFKHandler.onTimer(server);
+            }
+        });
+
+        ServerLifecycleEvents.SERVER_STARTED.register(server -> {
+            if (ChatUtil.getServer() == null) {
+                ChatUtil.setServer(server);
             }
         });
     }
