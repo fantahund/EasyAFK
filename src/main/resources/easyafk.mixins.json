@@ -1,0 +1,12 @@
+{
+  "required": true,
+  "minVersion": "0.8",
+  "package": "de.fanta.easyafk.mixin",
+  "compatibilityLevel": "JAVA_17",
+  "mixins": [
+    "MixinServerPlaynetworkHandler"
+  ],
+  "injectors": {
+    "defaultRequire": 1
+  }
+}

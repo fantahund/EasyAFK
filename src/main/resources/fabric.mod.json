@@ -1,0 +1,25 @@
+{
+  "schemaVersion": 1,
+  "id": "easyafk",
+  "version": "${version}",
+  "name": "Easyafk",
+  "description": "",
+  "authors": [],
+  "contact": {},
+  "license": "MIT",
+  "icon": "assets/easyafk/icon.png",
+  "environment": "*",
+  "entrypoints": {
+    "main": [
+      "de.fanta.easyafk.EasyAFK"
+    ]
+  },
+  "mixins": [
+    "easyafk.mixins.json"
+  ],
+  "depends": {
+    "fabricloader": ">=0.13.1",
+    "fabric": "*",
+    "minecraft": "1.18.1"
+  }
+}
